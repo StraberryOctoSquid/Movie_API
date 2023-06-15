@@ -3,11 +3,16 @@ const express = require("express"),
     fs = require('fs'),
     path = require('path');
 
+const bodyParser = require('body-parser'),
+    methodOverride = require('method-override');
+
+
+
 const app = express();
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname,'log.txt'), {flags: 'a'})
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' })
 
-app.use(morgan('combined', {stream: accessLogStream}));
+app.use(morgan('combined', { stream: accessLogStream }));
 
 
 let topMovies = [
@@ -51,20 +56,32 @@ let topMovies = [
     {
         title: 'Life is Beautiful',
         director: 'Roberto Benigni',
-    },  
+    },
 ]
 app.get('/', (req, res) => {
     res.send('Welcome to my movie list! Joe Dirt is not funny!');
-  });
-  
-  app.use('/static', express.static('public'));  
-  
-  app.get('/movies', (req, res) => {
+});
+
+app.use('/static', express.static('public'));
+
+app.get('/movies', (req, res) => {
     res.json(topMovies);
-  });
-  
-  
-  // listen for requests
-  app.listen(8080, () => {
+});
+
+
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+
+app.use(bodyParser.json());
+app.use(methodOverride());
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('The thing brokey!');
+});
+
+app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
-  });
+});
