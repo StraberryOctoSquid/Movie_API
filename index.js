@@ -1,4 +1,5 @@
 const express = require("express");
+    morgan = require('morgan');
 const app = express();
 
 let topMovies = [
@@ -17,31 +18,45 @@ let topMovies = [
     },
     {
         title: 'Back to the Future',
-        director: 'Steven Spielberg',
+        director: 'Robert Zemeckis',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
+        title: 'Return of the Jedi',
+        director: 'Richard Marquand',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
+        title: 'The Princess Bride',
+        director: 'Rob Reiner',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
+        title: 'Caddyshack',
+        director: 'Harold Raimis',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
+        title: 'A League of Their Own',
+        director: 'Penny Marshall',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
+        title: 'The Terminator',
+        director: 'James Cameron',
     },
     {
-        title: 'Jaws',
-        director: 'Steven Spielberg',
-    },
-    
+        title: 'Life is Beautiful',
+        director: 'Roberto Benigni',
+    },  
 ]
+app.get('/', (req, res) => {
+    res.send('Welcome to my movie list! Joe Dirt is not funny!');
+  });
+  
+  app.use('/static', express.static('public'));  
+  
+  app.get('/movies', (req, res) => {
+    res.json(topMovies);
+  });
+  
+  
+  // listen for requests
+  app.listen(8080, () => {
+    console.log('Your app is listening on port 8080.');
+  });
