@@ -1,7 +1,119 @@
 <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="stylesheet" type="text/css" href="docstyles.css" />
+</head>
+
+
+<body>
+
+</body>
+
+</html>
+
 <body>
     <p>
-        <h1>Hi!</h1>
-        <h2>This is a list of my favorite movies!</h2>
+    <h1>Hi!</h1>
+    <h2>This is an api with information about some of my favorite movies!</h2>
+    <h2>Please refer to the chart below for questions about what this API can do and how to interact with it.</h2>
     </p>
+    <table>
+        <tr>
+            <th>Business Logic</th>
+            <th>URL</th>
+            <th>HTTP METHOD</th>
+            <th>Request Body Data Format</th>
+            <th>Response Body Data Format</th>
+        </tr>
+        <tr>
+            <td>Return list of all movies</td>
+            <td>/movies</td>
+            <td>Get</td>
+            <td>None</td>
+            <td>A JSON object holding data about all movies in api</td>
+        </tr>
+        <tr>
+            <td>Return information about a director</td>
+            <td>/directors[name]</td>
+            <td>Get</td>
+            <td>None</td>
+            <td>A Json object holding data about a single director</td>
+        </tr>
+        <tr>
+            <td>Return information about a genre</td>
+            <td>/genre/[name]</td>
+            <td>Get</td>
+            <td>None</td>
+            <td>A JSON object holding data about a single genre</td>
+        </tr>
+        <tr>
+            <td>New user registration</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>A JSON object holding the new user's name and an array containing their favorite movies, structured
+                like:
+                {
+                "name": "Mary",
+                "favoriteMovies":[]
+                } </td>
+            <td>A Status of 201 will indicate that the user was succesfully added.
+
+                A status message 400 with a text of 'users need names' will indicate a failed new user registration.
+            </td>
+        </tr>
+        <tr>
+            <td>Update user name</td>
+            <td>/users/[id]</td>
+            <td>PUT</td>
+            <td>"A JSON object holding the user's new user name and an array containing their favorite movies,
+                structured like:
+                {
+                ""name"": ""Kim Updated Name"",
+                ""favoriteMovies"":[]
+                }"
+            </td>
+            <td>"A status message of 200 will indicate a succesfully updated user name.
+
+                A status messgae of 400 and a text message 'no such user' will indicate a failed attempt."
+            </td>
+        </tr>
+        <tr>
+            <td>Add a movie title to a user's list of favorites</td>
+            <td>/users/[id]/[movieTitle</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>"A status message of 200 accompanied by a text message of "" ${movieTitle} has been added to user
+                ${id}'s"" will confirm that a movie title has been succesfully added to the user's profile.
+
+                A status message of 400 accompanied by the text 'no such user' will indicate a failed attempt."
+            </td>
+        </tr>
+        <tr>
+            <td>Remove a movie title from a user's list of favorites
+            </td>
+            <td>/users/[id]/[movieTitle]
+            </td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>"A status message of 200 accompanied by a text message of "" ${movieTitle} has been deleted from user
+                ${id}'s"" will confirm that a movie title has been succesfully deleted from the user's profile.
+
+                A status message of 400 accompanied by the text 'no such user' will indicate a failed attempt."
+            </td>
+        </tr>
+        <tr>
+            <td>Delete a user's profile</td>
+            <td>/users/[id]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>"A status message of 200 and a text message 'User ${id} has been deleted' will indicate success.
+
+                A status message of 400 and a text message 'no such user' will indicate a failed attempt."
+            </td>
+        </tr>
+    </table>
 </body>
