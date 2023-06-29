@@ -1,9 +1,18 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/cdDB', { useNewUrlParser: trye, useUnifiedTopology: true });
+
 const express = require("express"),
     app = express(),
     bodyParser = require('body-parser'),
     uuid = require('uuid');
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 
 let users = [
     {
