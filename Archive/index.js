@@ -14,7 +14,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const directors = Models.Director;
 
-mongoose.connect('mongodb://localhost:27017/cdDB', { useNewUrlParser: trye, useUnifiedTopology: true });
+// mongoose.connect('mongodb://localhost:27017/cdDB', { useNewUrlParser: trye, useUnifiedTopology: true });
 
 
 app.use(bodyParser.json());

@@ -201,7 +201,7 @@ app.delete('/users/:Username', (req, res) => {
     // Creating error-handling that log all errors to terminal
     app.use((err, req, res, next) => {
         console.error(err.stack);
-        res.status(500).send('Ups, something went wrong!');
+        res.status(500).send('Opes, something went wrong!');
       });
   
   app.listen(8080, () => {
