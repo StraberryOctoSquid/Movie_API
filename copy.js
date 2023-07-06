@@ -6,11 +6,15 @@ const morgan = require('morgan');
 const uuid = require('uuid');
 const fs = require('fs');
 const path = require('path');
+const { title } = require('process');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -22,7 +26,14 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
   app.get('/movies', (req, res) => {
     Movies.find()
       .then((movies) => {
-        res.status(201).json(movies);
+        let movieTitles = [] 
+        movies.forEach (function(movie) {
+          movieTitles .push ({"Title": movie.Title})
+          console.log("movieis",movie.Title,movieTitles)
+        });
+        res.status(201).json(movieTitles)
+        // console.log(movies);
+        // res.status(201).json(movies);
       })
       .catch((err) => {
         console.error(err);
