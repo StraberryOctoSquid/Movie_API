@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Models = require('./Models/models.js');
+const Models = require('./Models/models');
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
@@ -26,7 +26,7 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
 
 
 // Creating GET route at endpoint "/movies" returning JSON object (Returns all movies)
-  app.get('/movies', (req, res) => {
+  app.get('/movies', passport.authenticate('jwt',{session: false }), (req, res) => {
     Movies.find()
       .then((movies) => {
         let movieTitles = [] 
