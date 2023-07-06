@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth.js')(app);
 
+const passport = require('passport');
+require('./passport');
+
 
 const Movies = Models.Movie;
 const Users = Models.User;
