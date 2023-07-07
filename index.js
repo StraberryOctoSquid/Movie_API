@@ -32,7 +32,6 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
         let movieTitles = [] 
         movies.forEach (function(movie) {
           movieTitles .push ({"Title": movie.Title})
-          console.log("movieis",movie.Title,movieTitles)
         });
         res.status(201).json(movieTitles)
         // console.log(movies);
