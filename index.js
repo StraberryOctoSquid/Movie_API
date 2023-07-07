@@ -110,6 +110,7 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
 
 // Allow new users to Register (CREATE)
   app.post('/users', (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
@@ -118,7 +119,7 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
           Users
             .create({
               Username: req.body.Username,
-              Password: req.body.Password,
+              Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
             })
@@ -126,7 +127,7 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
           .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error);
-          })
+          });
         }
       })
       .catch((error) => {

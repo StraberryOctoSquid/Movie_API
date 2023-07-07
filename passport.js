@@ -19,14 +19,18 @@ passport.use(new LocalStrategy({
       return done(null, false, {message: 'Incorrect username.'});
     }
 
-    if (!user) {
-      console.log('incorrect username');
-      return done(null, false, {message: 'Incorrect username or password.'});
+    if (!user.validatePassword(password)) {
+      console.log('incorrect password');
+      return done(null, false, {message: 'Incorrect password.'});
     }
 
     console.log('finished');
     return done(null, user);
-  });
+  })
+    .catch((error) => {
+        console.log(error);
+        return done(error);
+    });
 }));
 
 passport.use(new JWTStrategy({
