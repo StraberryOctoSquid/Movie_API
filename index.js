@@ -13,6 +13,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// require cors
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+// Delete this line?
+// const cors = require('cors');
+app.use(cors());
+
 let auth = require('./auth.js')(app);
 
 const passport = require('passport');
