@@ -7,6 +7,7 @@ const uuid = require('uuid');
 const fs = require('fs');
 const path = require('path');
 const { title } = require('process');
+const { check, validationResult } = require('express-validator');
 
 const app = express();
 
@@ -109,7 +110,14 @@ mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnified
   });
 
 // Allow new users to Register (CREATE)
-  app.post('/users', (req, res) => {
+  app.post('/users',
+  [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Username', 'Username is required').isLength({min: 5}),
+  ],
+  (req, res) => {
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
