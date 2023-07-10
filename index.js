@@ -223,12 +223,6 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 
-
-
-
-
-
-
 // Creating GET route at endpoint "/" returning text
 app.get('/', (req, res) => {
   res.send('Happy Viewing!!!');
@@ -249,7 +243,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Opes, something went wrong!');
 });
 
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
-
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('Listening on Port ' + port);
 });
