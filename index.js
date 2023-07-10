@@ -40,7 +40,10 @@ require('./passport');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb+srv://johntest:1234@filmdb.kwgqh67.mongodb.net/?retryWrites=true&w=majoritymongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 // Intro message
 app.get('/', (req, res) => {
