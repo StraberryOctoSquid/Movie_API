@@ -42,6 +42,10 @@ const Users = Models.User;
 
 mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
+// Intro message
+app.get('/', (req, res) => {
+  res.send('Please enjoy the show!');
+});
 
 // Creating GET route at endpoint "/movies" returning JSON object (Returns all movies)
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
