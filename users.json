@@ -1,0 +1,5 @@
+{"_id":{"$oid":"649c1c58c08971a9596e5701"},"Name":"Sandra Boberson","UserName":"sboberson","Email":"sboberson@gmail.com","Birthday":"1999-09-09","FavoriteMovies":[{"$oid":"649b35de55e9e00722ce66ea"}],"Password":"1234"}
+{"_id":{"$oid":"649c1c59c08971a9596e5702"},"Name":"Sarah Sanderbob","UserName":"ssanderbob","Email":"ssanderbob@gmail.com","Birthday":"2222-22-22","FavoriteMovies":[{"$oid":"649b44111d64dd484ec5a12f"}]}
+{"_id":{"$oid":"649c1c59c08971a9596e5703"},"Name":"Suzie Bobensand","UserName":"sbobensand","Email":"sbobensand@gmail.com","Birthday":"2019-06-08","FavoriteMovies":[{"$oid":"649b35de55e9e00722ce66ea"},{"$oid":"649b052319303f05b8f0f8ea"}]}
+{"_id":{"$oid":"649c1c59c08971a9596e5704"},"Name":"Jose Alito","UserName":"jalito","Email":"jalito@gmail.com","Birthday":"1980-02-29","FavoriteMovies":[{"$oid":"649b44111d64dd484ec5a12e"}]}
+{"_id":{"$oid":"64a7fabe02be2e7ff36327bf"},"Username":"Mary","Password":"1234","Email":"mary@gmail.com","Birthday":{"$date":"2022-05-05T00:00:00Z"},"FavoriteMovies":[],"__v":0}
