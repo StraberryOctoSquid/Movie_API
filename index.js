@@ -14,11 +14,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// require cors
-// Delete this line?
+// require cors from all origins
 const cors = require('cors');
+app.use(cors());
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+// Restrict requests to specific origins
+// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', '*'];
 
 app.use(cors({
   origin: (origin, callback) => {
