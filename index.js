@@ -22,16 +22,16 @@ app.use(cors());
 // Restrict requests to specific origins
 // let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', '*'];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      let message = "The CORS policy for this application doesn't allow access from origin" + origin;
-      return callback(new Error(message), false);
-    }
-    return callback(null, true);
-  }
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       let message = "The CORS policy for this application doesn't allow access from origin" + origin;
+//       return callback(new Error(message), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
 
 let auth = require('./auth.js')(app);
 
@@ -160,7 +160,13 @@ app.post('/users',
 
 
 // Allow users to update user info(username) (UPDATE)
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username',
+[
+  check('Username', 'Username is required').isLength({ min: 5 }),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+],
+
+passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
     $set:
     {
