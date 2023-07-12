@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
   res.send('Please enjoy the show!');
 });
 
-// Creating GET route at endpoint "/movies" returning JSON object (Returns all movies)
+// Creating GET route at endpoint "/movies" returning JSON object (Returns all movie Titles)
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
