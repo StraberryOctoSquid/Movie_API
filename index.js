@@ -166,25 +166,34 @@ app.put('/users/:Username',
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
 ],
 
-passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $set:
-    {
-      Username: req.body.Username,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
-    }
-  },
-    { new: true }) // This line makes sure that the updated document is returned
-    .then(updatedUser => {
-      res.json(updatedUser);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+passport.authenticate('jwt', { session: false }), async function(req, res) {
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array() });
+  }
+
+  let updatedUser;
+  try {
+    updatedUser = await Users.findOneAndUpdate(
+      {
+        Username: req.params.Username
+      }, {
+        $set: {
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
+        }
+      },
+      {new: true
+      });
+  }
+  catch(err) {
+    console.error(err);
+    return res.status(500).send('Error: ' + err);
+  }
+  return res.json(updatedUser);
+})
 
 
 // Allow users to add movies to ther favorites list and send text of confirmations as added (CREATE)
