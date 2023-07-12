@@ -187,7 +187,7 @@ passport.authenticate('jwt', { session: false }), (req, res) => {
 });
 
 
-// Allow users to add movies to ther favorites list and sent text of confirmations as added (CREATE)
+// Allow users to add movies to ther favorites list and send text of confirmations as added (CREATE)
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -238,10 +238,6 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 
-// Creating GET route at endpoint "/" returning text
-app.get('/', (req, res) => {
-  res.send('Happy Viewing!!!');
-});
 
 // This Serves the statics files in the "public" folder
 app.use(express.static('public'));
