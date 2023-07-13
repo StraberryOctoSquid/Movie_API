@@ -120,7 +120,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 
 // Creating GET that returns data from user (READ)
 app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOne({ 'User': req.params.username })
+  Users.findOne({ User: req.params.username })
     .then((user) => {
       res.json(user);
     })
