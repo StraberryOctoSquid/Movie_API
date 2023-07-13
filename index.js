@@ -270,7 +270,6 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 });
 
 
-
 // This Serves the statics files in the "public" folder
 app.use(express.static('public'));
 
