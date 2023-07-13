@@ -52,6 +52,17 @@ app.get('/', (req, res) => {
   res.send('Please enjoy the show!');
 });
 
+// Allow access to documentation.html
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', {root: __dirname});
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
+
 // Creating GET route at endpoint "/movies" returning JSON object (Returns all movie Titles)
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
@@ -118,7 +129,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
     });
 });
 
-// Creating GET that returns data from user (READ)
+// Creating GET that returns data from a specific user (READ)
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then((user) => {
