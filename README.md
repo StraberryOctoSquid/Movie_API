@@ -32,7 +32,7 @@ Now that you've created a new account, let's get you logged-in!
     - The first param will have a key of "Username" and a value of "your username"
     - The second param will have a key of "Password" and a value of "your password"
 - A sucessful request will return your very own JWTToken. This token can now be used to access the rest of the app!
-
+- Be sure to include your bearer token in the authorization for all further requests!
 ### View Movies
 
 Let's see what were dealing with here! Curious about what movies are in our database? Let's get a list of the movie's titles for you!
