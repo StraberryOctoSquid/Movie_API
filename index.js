@@ -166,9 +166,12 @@ app.post('/users',
               Username: req.body.Username,
               Password: hashedPassword,
               Email: req.body.Email,
-              Birthday: req.body.Birthday
+              Birthday: req.body.Birthday,
+              FavoriteMovies: [],
             })
-            .then((user) => { res.status(201).json(user) })
+            .then((user) => { res.status(201).json({ message: `${req.body.Username} has been added successfully`,user,
+          });
+        })
             .catch((error) => {
               console.error(error);
               res.status(500).send('Error: ' + error);
