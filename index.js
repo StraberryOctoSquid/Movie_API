@@ -62,8 +62,19 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something went wrong!');
 });
 
+// Creating GET route at endpoint "/movies" returning JSON object (Returns all movie objects)
+app.get('/movies', (req, res) => {
+  Movies.find()
+    .then((movies) => {
+      res.status(200).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err)
+    });
+});
 
-// Creating GET route at endpoint "/movies" returning JSON object (Returns all movie Titles)
+// Creating GET route at endpoint "/movies/titles" returning JSON object (Returns all movie Titles)
 app.get('/movies/titles', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
