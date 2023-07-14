@@ -44,7 +44,7 @@ const Users = Models.User;
 
 // mongoose.connect('mongodb://127.0.0.1/cdDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 // Intro message
@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 
 // Allow access to documentation.html
 app.get('/documentation', (req, res) => {
-  res.sendFile('public/documentation.html', {root: __dirname});
+  res.sendFile('public/documentation.html', { root: __dirname });
 });
 
 app.use((err, req, res, next) => {
@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
 
 
 // Creating GET route at endpoint "/movies" returning JSON object (Returns all movie Titles)
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies/titles', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       let movieTitles = []
@@ -169,9 +169,11 @@ app.post('/users',
               Birthday: req.body.Birthday,
               FavoriteMovies: [],
             })
-            .then((user) => { res.status(201).json({ message: `${req.body.Username} has been added successfully`,user,
-          });
-        })
+            .then((user) => {
+              res.status(201).json({
+                message: `${req.body.Username} has been added successfully`, user,
+              });
+            })
             .catch((error) => {
               console.error(error);
               res.status(500).send('Error: ' + error);
@@ -187,23 +189,23 @@ app.post('/users',
 
 // Allow users to update user info(username) (UPDATE)
 app.put('/users/:Username',
-[
-  check('Username', 'Username is required').isLength({ min: 5 }),
-  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-],
+  [
+    check('Username', 'Username is required').isLength({ min: 5 }),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  ],
 
-passport.authenticate('jwt', { session: false }), async function(req, res) {
-  let errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({errors: errors.array() });
-  }
+  passport.authenticate('jwt', { session: false }), async function (req, res) {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
 
-  let updatedUser;
-  try {
-    updatedUser = await Users.findOneAndUpdate(
-      {
-        Username: req.params.Username
-      }, {
+    let updatedUser;
+    try {
+      updatedUser = await Users.findOneAndUpdate(
+        {
+          Username: req.params.Username
+        }, {
         $set: {
           Username: req.body.Username,
           Password: req.body.Password,
@@ -211,15 +213,16 @@ passport.authenticate('jwt', { session: false }), async function(req, res) {
           Birthday: req.body.Birthday
         }
       },
-      {new: true
-      });
-  }
-  catch(err) {
-    console.error(err);
-    return res.status(500).send('Error: ' + err);
-  }
-  return res.json(updatedUser);
-})
+        {
+          new: true
+        });
+    }
+    catch (err) {
+      console.error(err);
+      return res.status(500).send('Error: ' + err);
+    }
+    return res.json(updatedUser);
+  })
 
 
 // Allow users to add movies to ther favorites list and send text of confirmations as added (CREATE)
@@ -289,7 +292,7 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port);
 });
 
