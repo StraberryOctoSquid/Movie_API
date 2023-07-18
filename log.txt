@@ -20,3 +20,4 @@
 ::1 - - [07/Jul/2023:12:36:23 +0000] "GET /users/johntest/movies/649b052319303f05b8f0f8ea HTTP/1.1" 404 185 "-" "PostmanRuntime/7.32.3"
 ::1 - - [07/Jul/2023:12:38:09 +0000] "GET /users/johntest/movies/%22649b052319303f05b8f0f8ea%22 HTTP/1.1" 404 191 "-" "PostmanRuntime/7.32.3"
 ::1 - - [07/Jul/2023:17:11:11 +0000] "DELETE /users HTTP/1.1" 404 147 "-" "PostmanRuntime/7.32.3"
+127.0.0.1 - - [18/Jul/2023:12:53:46 +0000] "POST /post HTTP/1.1" 404 144 "-" "PostmanRuntime/7.32.3"
