@@ -237,7 +237,7 @@ app.put('/users/:Username',
 
 
 // Allow users to add movies to ther favorites list and send text of confirmations as added (CREATE)
-app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({ Username: req.params.Username })
     .then(user => {
       if (!user) {
