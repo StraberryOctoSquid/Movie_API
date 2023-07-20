@@ -51,7 +51,7 @@ Want to see details about a specific movie?
 
 Now that you are a full fledged member of myFlix, let's customize your account and add some favorite movies!
 
-- Send a post request to the endpoint /users/[Username]/movies/[MovieID]
+- Send a Get request to the endpoint /users/[Username]/movies/[MovieID]
 - This will push a new movie to your favorites!
 
 ### View your profile
