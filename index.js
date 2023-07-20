@@ -238,19 +238,38 @@ app.put('/users/:Username',
 
 // Allow users to add movies to ther favorites list and send text of confirmations as added (CREATE)
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    { $push: { FavoriteMovies: req.params.MovieID } },
-    { new: true }
-  )
-    .then(updatedUser => {
-      res.json(updatedUser);
+  Users.findOne({ Username: req.params.Username })
+    .then(user => {
+      if (!user) {
+        return res.status(404).send('User not found.');
+      }
+
+      const movieID = req.params.MovieID;
+      const isMovieAlreadyFavorited = user.FavoriteMovies.includes(movieID);
+
+      if (isMovieAlreadyFavorited) {
+        return res.status(409).send('Movie already exists in favorites.');
+      }
+
+      Users.findOneAndUpdate(
+        { Username: req.params.Username },
+        { $push: { FavoriteMovies: movieID } },
+        { new: true }
+      )
+        .then(updatedUser => {
+          res.json(updatedUser);
+        })
+        .catch(err => {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        });
     })
     .catch(err => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
 });
+
 
 
 // Allow users to remove a movie from the favorites list (DELETE)
