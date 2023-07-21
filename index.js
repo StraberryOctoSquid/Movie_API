@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
 });
 
 // Creating GET route at endpoint "/movies" returning JSON object (Returns all movie objects)
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(200).json(movies);
